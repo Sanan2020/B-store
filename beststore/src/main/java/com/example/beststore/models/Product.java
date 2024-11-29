@@ -1,6 +1,8 @@
 package com.example.beststore.models;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
 
@@ -19,8 +21,11 @@ public class Product {
 
     @Column(columnDefinition = "TEXT")
     private String description;
-    private Date createdAt;
+
     private String imageFileName;
+
+    @CreationTimestamp
+    private Date createdAt;
 
     public int getId() {
         return id;

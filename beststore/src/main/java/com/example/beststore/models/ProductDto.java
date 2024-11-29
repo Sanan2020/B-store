@@ -4,6 +4,8 @@ package com.example.beststore.models;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Date;
+
 public class ProductDto {
     @com.example.beststore.models.NotEmpty(message = "The name is required")
     private String name;
@@ -22,6 +24,16 @@ public class ProductDto {
     private String description;
 
     private MultipartFile imageFile;
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    private Date createdAt;
 
     public String getName() {
         return name;

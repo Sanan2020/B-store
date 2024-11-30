@@ -52,7 +52,7 @@ public class ProductsController {
         product.setPrice(productDto.getPrice());
         product.setDescription(productDto.getDescription());
 
-        /*ชื่อภาพ*/
+        /*ชื่อภาพ */
         MultipartFile file = productDto.getImageFile();
         String filename = file.getOriginalFilename();
         product.setImageFileName(filename);

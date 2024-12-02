@@ -23,7 +23,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/productsAPI")
 public class ProductsController {
-    private static final String UPLOAD_DIR = "src/main/resources/static/images/";
+    private static final String UPLOAD_DIR = "public/images/";
 
     @Autowired
     private ProductsRepository repo;
@@ -43,7 +43,7 @@ public class ProductsController {
     }
 
     @PostMapping("/save")
-    public String saveProduct(@ModelAttribute("productDto") ProductDto productDto) {
+    public String saveProduct(@ModelAttribute("productDto") ProductDto productDto) throws IOException {
         // บันทึกข้อมูลสินค้าโดยใช้ service
         Product product = new Product();
         product.setName(productDto.getName());
@@ -56,10 +56,15 @@ public class ProductsController {
         MultipartFile file = productDto.getImageFile();
         String filename = file.getOriginalFilename();
         product.setImageFileName(filename);
+        
         // สร้าง path สำหรับเก็บไฟล์ในโฟลเดอร์ที่กำหนด (public/images)
         //Path path = Paths.get(UPLOAD_DIR + filename);
         // คัดลอกไฟล์จาก MultipartFile ไปยังโฟลเดอร์ public/images
         //Files.copy(file.getInputStream(), path);
+
+        byte[] bytes = file.getBytes();
+        Path path = Paths.get(UPLOAD_DIR + "/" + file.getOriginalFilename());
+        Files.write(path, bytes);
 
         repo.save(product);
         return "redirect:"; // หลังจากบันทึกเสร็จให้ redirect ไปที่หน้ารายการสินค้า

@@ -7,10 +7,7 @@ import com.example.beststore.models.Product;
 import com.example.beststore.services.ProductsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -52,11 +49,11 @@ public class ProductsController {
         product.setPrice(productDto.getPrice());
         product.setDescription(productDto.getDescription());
 
-        /*ชื่อภาพ */
+        /*ชื่อภาพ*/
         MultipartFile file = productDto.getImageFile();
         String filename = file.getOriginalFilename();
         product.setImageFileName(filename);
-        
+
         // สร้าง path สำหรับเก็บไฟล์ในโฟลเดอร์ที่กำหนด (public/images)
         //Path path = Paths.get(UPLOAD_DIR + filename);
         // คัดลอกไฟล์จาก MultipartFile ไปยังโฟลเดอร์ public/images
@@ -67,6 +64,8 @@ public class ProductsController {
         Files.write(path, bytes);
 
         repo.save(product);
-        return "redirect:"; // หลังจากบันทึกเสร็จให้ redirect ไปที่หน้ารายการสินค้า
+        return "redirect:";
     }
+
+
 }

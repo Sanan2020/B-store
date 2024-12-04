@@ -26,7 +26,7 @@ public class ProductsController {
     private ProductsRepository repo;
 
     @GetMapping({"","/"})
-    public String showProductList(Model model) {
+    public String showProductList(Model model){
         List<Product> products = repo.findAll(Sort.by(Sort.Direction.ASC, "id"));
         model.addAttribute("products", products);
         return "products/index";

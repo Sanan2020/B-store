@@ -39,6 +39,11 @@ public class ProductsController {
         return "products/CreateProduct";
     }
 
+    @GetMapping("/cancel")
+    public String cancelPage() {
+        return "products/index";
+    }
+
     @PostMapping("/save")
     public String saveProduct(@ModelAttribute("productDto") ProductDto productDto) throws IOException {
         // บันทึกข้อมูลสินค้าโดยใช้ service

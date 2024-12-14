@@ -16,6 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/productsAPI")
@@ -42,6 +43,17 @@ public class ProductsController {
     @GetMapping("/cancel")
     public String cancelPage() {
         return "products/index";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable("id") Long id, Model model) {
+        Optional<Product> productOptional = repo.findById(Math.toIntExact(id));
+        if (productOptional.isPresent()) {
+            model.addAttribute("product", productOptional.get());
+            return "products/CreateProduct";
+        } else {
+            return "redirect:"; // ถ้าไม่พบผลิตภัณฑ์
+        }
     }
 
     @PostMapping("/save")
